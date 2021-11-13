@@ -11,7 +11,6 @@ import {
   WebHookProviderEnum,
 } from './interfaces';
 
-
 @Injectable()
 export class EyeService {
   [WebHookProviderEnum.discord];

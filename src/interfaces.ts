@@ -1,9 +1,23 @@
 import { Observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
+import { ModuleMetadata, Provider, Type } from '@nestjs/common';
+
 export interface EyeOptionsInterface {
   url: string;
   webHookProvider: WebHookProviderEnum.discord | WebHookProviderEnum.email;
 }
+export interface OwlOptionsFactory {
+  createOwlOptions(): Promise<EyeOptionsInterface> | EyeOptionsInterface;
+}
+export interface EyeOptionsAsyncInterface  extends Pick<ModuleMetadata, 'imports'> {
+  useExisting?: Type<EyeOptionsInterface>;
+  useClass?: Type<OwlOptionsFactory>;
+  useFactory?: (
+      ...args: any[]
+  ) => Promise<EyeOptionsInterface> |EyeOptionsInterface ;
+  inject?: any[];
+}
+
 export enum WebHookProviderEnum {
   discord = 'DISCORD',
   email = 'EMAIL',
